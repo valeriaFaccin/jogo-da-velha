@@ -19,7 +19,7 @@ function init() {
 
     currentPlayer.innerHTML = `Jogador da vez: ${player}`;
 
-    document.querySelectorAll('.game button').forEach((item) => {
+    document.querySelectorAll('.jogo__button').forEach((item) => {
         item.innerHTML = '';
         item.addEventListener('click', newMove);
     })

@@ -29,16 +29,17 @@ hr {
     margin-bottom: 10px;
 }
 
-.game {
+.jogo {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-.game button {
+.jogo__button {
     width: 100px;
     height: 100px;
     margin: 5px;
     cursor: pointer;
     font-size: 50px;
     background-color: aliceblue;
+    border: 1px solid #000;
 }
