@@ -68,3 +68,18 @@ hr {
     background-color: transparent;
     border: 1px solid #858383;
 }
+
+.scoreboard {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.score-x, .score-o {
+    font-size: 20px;
+}
+
+.reset {
+    margin-top: 10px;
+}
