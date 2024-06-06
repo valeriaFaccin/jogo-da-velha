@@ -61,3 +61,30 @@ function check() {
         return;
     }
 }
+
+const temaBtn = document.querySelector(".temas");
+
+temaBtn.addEventListener('click', () => {
+    const jogoBtn = document.querySelectorAll('.jogo__button');
+
+    document.body.classList.toggle('dark');
+    document.body.classList.toggle('light');
+
+    if (document.body.classList.contains('light')) {
+        temaBtn.innerHTML = 'Dark';
+        temaBtn.classList.remove('dark');
+        temaBtn.classList.add('light');
+        jogoBtn.forEach(button => {
+            button.classList.remove('dark');
+            button.classList.add('light');
+        });
+    } else {
+        temaBtn.innerHTML = 'Light';
+        temaBtn.classList.remove('light');
+        temaBtn.classList.add('dark');
+        jogoBtn.forEach(button => {
+            button.classList.remove('light');
+            button.classList.add('dark');
+        });
+    }
+});

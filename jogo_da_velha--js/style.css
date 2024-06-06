@@ -4,12 +4,31 @@
     box-sizing: border-box;
 }
 
-body {
+body{
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #000;
+}
+
+.light{
     background-color: aliceblue;
+    color: #000;
+}
+
+.dark{
+    background-color: #000;
+    color: #fff;
+}
+
+.temas {
+    width: 25%;
+    height: 30px;
+    align-self: center;
+    background-color: transparent;
+    border: 1px solid #a0a0a0;
+    cursor: pointer;
 }
 
 main {
@@ -40,6 +59,6 @@ hr {
     margin: 5px;
     cursor: pointer;
     font-size: 50px;
-    background-color: aliceblue;
-    border: 1px solid #000;
+    background-color: transparent;
+    border: 1px solid #858383;
 }
