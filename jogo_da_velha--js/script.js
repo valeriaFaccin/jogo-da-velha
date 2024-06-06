@@ -1,9 +1,14 @@
-const currentPlayer = document.querySelector('.currentplayer');
-//armazena itens que já foram selecionados
-let selected;
-let player = 'X';
+const jogadorAtual = document.querySelector('.jogadorAtual');
+const placarJogadorX = document.querySelector('.placar-x');
+const placarJogadorO = document.querySelector('.placar-o');
+const reiniciarBtn = document.querySelector('.reinicia');
 
-let positions = [
+let posSelecionada;
+let jogador = 'X';
+let placarX = 0;
+let placarO = 0;
+
+let posVitoria = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
@@ -14,50 +19,86 @@ let positions = [
     [3, 5, 7],
 ];
 
-function init() {
-    selected = [];
+// Load placars from local storage
+function armazenaPlacar() {
+    placarX = localStorage.getItem('placarX') || 0;
+    placarO = localStorage.getItem('placarO') || 0;
+    atualizaPlacar();
+}
 
-    currentPlayer.innerHTML = `Jogador da vez: ${player}`;
+function atualizaPlacar() {
+    placarJogadorX.textContent = `Jogador X: ${placarX}`;
+    placarJogadorO.textContent = `Jogador O: ${placarO}`;
+}
+
+function salvaPlacar() {
+    localStorage.setItem('placarX', placarX);
+    localStorage.setItem('placarO', placarO);
+}
+
+function reiniciaPlacar() {
+    placarX = 0;
+    placarO = 0;
+    salvaPlacar();
+    atualizaPlacar();
+}
+
+function inicioJogo() {
+    posSelecionada = [];
+
+    jogadorAtual.innerHTML = `Jogador da vez: ${jogador}`;
 
     document.querySelectorAll('.jogo__button').forEach((item) => {
         item.innerHTML = '';
-        item.addEventListener('click', newMove);
-    })
+        item.addEventListener('click', jogada);
+    });
+
+    armazenaPlacar();
 }
 
-init();
+inicioJogo();
 
-function newMove(e) {
-    const index= e.target.getAttribute("value");
-    e.target.innerHTML = player;
-    e.target.removeEventListener('click', newMove);
-    //pega o index do botão já selecionado e equivale ele a player
-    selected[index] = player;
+function jogada(e) {
+    const index = e.target.getAttribute("value");
+    e.target.innerHTML = jogador;
+    e.target.removeEventListener('click', jogada);
+    posSelecionada[index] = jogador;
 
     setTimeout(() => {
-        check();
-    }, [100]);
+        verificaVencedor();
+    }, 100);
 
-    player = player === 'X' ? "O" : "X";
-    currentPlayer.innerHTML = `Jogador da vez: ${player}`;
+    jogador = jogador === 'X' ? "O" : "X";
+    jogadorAtual.innerHTML = `Jogador da vez: ${jogador}`;
 }
 
-function check() {
-    let playerLastMove = player === 'X' ? 'O' : 'X';
+function verificaVencedor() {
+    let ultimoJogador = jogador === 'X' ? 'O' : 'X';
 
-    const itens = selected.map((item, i) => [item,i]).filter((item) => item[0] === playerLastMove).map((item) => item[1]);
+    const itens = posSelecionada.map((item, i) => [item, i]).filter((item) => item[0] === ultimoJogador).map((item) => item[1]);
 
-    for(pos of positions) {
+    for (let pos of posVitoria) {
         if (pos.every((item) => itens.includes(item))) {
-            alert('O jogador ' + playerLastMove + ' ganhou!');
-            init();
+            alert('O jogador ' + ultimoJogador + ' ganhou!');
+            if (ultimoJogador === 'X') {
+                placarX++;
+            } else {
+                placarO++;
+            }
+            salvaPlacar();
+            atualizaPlacar();
+            inicioJogo();
             return;
         }
     }
 
-    if(selected.filter((item) => item).length === 9) {
+    if (posSelecionada.filter((item) => item).length === 9) {
         alert('Deu empate');
-        init();
+        placarX++;
+        placarO++;
+        salvaPlacar();
+        atualizaPlacar();
+        inicioJogo();
         return;
     }
 }
@@ -73,6 +114,9 @@ temaBtn.addEventListener('click', () => {
     temaBtn.classList.toggle('dark');
     temaBtn.classList.toggle('light');
 
+    reiniciarBtn.classList.toggle('dark');
+    reiniciarBtn.classList.toggle('light');
+
     jogoBtn.forEach(button => {
         button.classList.toggle('dark');
         button.classList.toggle('light');
@@ -83,4 +127,9 @@ temaBtn.addEventListener('click', () => {
     } else {
         temaBtn.innerHTML = 'Light';
     }
+});
+
+reiniciarBtn.addEventListener('click', () => {
+    reiniciaPlacar();
+    inicioJogo();
 });
