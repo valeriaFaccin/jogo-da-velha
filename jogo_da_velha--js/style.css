@@ -48,6 +48,12 @@ hr {
     margin-bottom: 10px;
 }
 
+.pontos__descri{
+    text-align: center;
+    margin: 10px;
+    letter-spacing: 3px;
+}
+
 .jogo {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

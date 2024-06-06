@@ -70,21 +70,17 @@ temaBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark');
     document.body.classList.toggle('light');
 
+    temaBtn.classList.toggle('dark');
+    temaBtn.classList.toggle('light');
+
+    jogoBtn.forEach(button => {
+        button.classList.toggle('dark');
+        button.classList.toggle('light');
+    });
+
     if (document.body.classList.contains('light')) {
         temaBtn.innerHTML = 'Dark';
-        temaBtn.classList.remove('dark');
-        temaBtn.classList.add('light');
-        jogoBtn.forEach(button => {
-            button.classList.remove('dark');
-            button.classList.add('light');
-        });
     } else {
         temaBtn.innerHTML = 'Light';
-        temaBtn.classList.remove('light');
-        temaBtn.classList.add('dark');
-        jogoBtn.forEach(button => {
-            button.classList.remove('light');
-            button.classList.add('dark');
-        });
     }
 });
