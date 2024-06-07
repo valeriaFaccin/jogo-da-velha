@@ -46,7 +46,13 @@ $jogadorAtual = $jogador1;
 while (true) {
     imprimeTabuleiro($tabuleiro);
     echo "$jogadorAtual (Posições 1-9): ";
-    $pos = readline() - 1;
+    $pos = readline();
+    $pos = intval($pos);
+    echo $pos . PHP_EOL;
+
+    if(is_int($pos)){
+        $pos -= 1;
+    } 
 
     if ($pos < 0 || $pos > 8 || $tabuleiro[$pos] !== ' ') {
         echo "Posição inválida\n";
