@@ -19,6 +19,7 @@ let posVitoria = [
     [3, 5, 7],
 ];
 
+
 function armazenaPlacar() {
     placarX = localStorage.getItem('placarX') || 0;
     placarO = localStorage.getItem('placarO') || 0;
